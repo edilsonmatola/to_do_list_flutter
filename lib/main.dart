@@ -6,7 +6,7 @@ import 'package:path_provider/path_provider.dart';
 
 void main() {
   runApp(MaterialApp(
-    home: Home(),
+    home: const Home(),
     debugShowCheckedModeBanner: false,
   ));
 }
@@ -31,9 +31,13 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
-    _readData().then((data) => setState(() {
+    _readData().then(
+      (data) => setState(
+        () {
           _toDoList = json.decode(data) as List<dynamic>;
-        }));
+        },
+      ),
+    );
   }
 
   /* Adiciona tarefa */
@@ -158,7 +162,8 @@ class _HomeState extends State<Home> {
         title: Text(_toDoList[index]['title'].toString()),
         value: _toDoList[index]['ok'] as bool,
         secondary: CircleAvatar(
-          child: Icon(_toDoList[index]['ok'] as bool ? Icons.check : Icons.error),
+          child:
+              Icon(_toDoList[index]['ok'] as bool ? Icons.check : Icons.error),
         ),
       ),
       onDismissed: (direction) {
